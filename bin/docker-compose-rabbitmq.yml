@@ -1,0 +1,13 @@
+rabbitmq:
+  image: rabbitmq:management
+  ports:
+    - "5672:5672"
+    - "15672:15672"
+  networks:
+    - 's6r-network'
+
+networks:
+  s6r-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"

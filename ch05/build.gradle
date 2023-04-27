@@ -1,0 +1,169 @@
+description = 'Spring 6 Recipes :: Chapter 5 :: Spring Security'
+
+configure(subprojects.findAll { !it.name.contains('shared') }) {
+
+    apply plugin: 'war'
+    apply plugin: 'com.palantir.docker'
+    apply plugin: 'com.palantir.docker-run'
+
+    defaultTasks 'clean', 'build'
+
+    if (!it.name.contains("5_8")) {
+        war {
+            archiveFileName = 'todos.war'
+        }
+
+        dependencies {
+            implementation(project(":ch05:recipe_5_shared"))
+
+            implementation group: 'com.h2database', name: 'h2'
+
+            compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+        }
+    }
+    docker {
+        name "s6r/todos-security:$project.name"
+        tags "$project.name"
+        files war.outputs
+        dockerfile file('../Dockerfile')
+    }
+
+    dockerRun {
+        name "s6r-todos-security-$project.name"
+        image "s6r/todos-security:$project.name"
+        ports '8080:8080'
+    }
+}
+
+project('recipe_5_shared') {
+    apply plugin: 'java-library'
+
+    dependencies {
+        api group: 'org.springframework', name: 'spring-jdbc'
+        api group: 'org.springframework', name: 'spring-webmvc'
+
+        api group: 'org.springframework.security', name: 'spring-security-web'
+        api group: 'org.springframework.security', name: 'spring-security-config'
+
+        api group: 'org.thymeleaf', name: 'thymeleaf'
+        api group: 'org.thymeleaf', name: 'thymeleaf-spring6'
+        api group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity6'
+
+        compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+    }
+}
+
+project('recipe_5_3_v') {
+    dependencies {
+        implementation group: 'org.springframework.security', name: 'spring-security-ldap'
+        implementation group: 'org.springframework.ldap', name: 'spring-ldap-core'
+    }
+}
+
+project('recipe_5_7_i') {
+    dependencies {
+        implementation group: 'org.springframework.security', name: 'spring-security-acl'
+        implementation group: 'org.springframework', name: 'spring-context-support'
+        implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine'
+    }
+}
+
+project('recipe_5_8_i') {
+    dependencies {
+        implementation group: 'org.springframework.security', name: 'spring-security-web'
+        implementation group: 'org.springframework.security', name: 'spring-security-config'
+
+        implementation group: 'org.thymeleaf', name: 'thymeleaf'
+        implementation group: 'org.thymeleaf', name: 'thymeleaf-spring6'
+        implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity6'
+
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.springframework', name: 'spring-webflux'
+        implementation group: 'org.springframework', name: 'spring-r2dbc'
+
+        implementation group: 'io.projectreactor.netty', name: 'reactor-netty'
+        implementation group: 'io.r2dbc', name: 'r2dbc-h2'
+
+        compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+    }
+}
+
+project('recipe_5_8_ii') {
+    dependencies {
+        implementation group: 'org.springframework.security', name: 'spring-security-web'
+        implementation group: 'org.springframework.security', name: 'spring-security-config'
+
+        implementation group: 'org.thymeleaf', name: 'thymeleaf'
+        implementation group: 'org.thymeleaf', name: 'thymeleaf-spring6'
+        implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity6'
+
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.springframework', name: 'spring-webflux'
+        implementation group: 'org.springframework', name: 'spring-r2dbc'
+
+        implementation group: 'io.projectreactor.netty', name: 'reactor-netty'
+        implementation group: 'io.r2dbc', name: 'r2dbc-h2'
+
+        compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+    }
+}
+
+project('recipe_5_8_iii') {
+    dependencies {
+        implementation group: 'org.springframework.security', name: 'spring-security-web'
+        implementation group: 'org.springframework.security', name: 'spring-security-config'
+
+        implementation group: 'org.thymeleaf', name: 'thymeleaf'
+        implementation group: 'org.thymeleaf', name: 'thymeleaf-spring6'
+        implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity6'
+
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.springframework', name: 'spring-webflux'
+        implementation group: 'org.springframework', name: 'spring-r2dbc'
+
+        implementation group: 'io.projectreactor.netty', name: 'reactor-netty'
+        implementation group: 'io.r2dbc', name: 'r2dbc-h2'
+
+        compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+    }
+}
+
+project('recipe_5_8_iv') {
+    dependencies {
+        implementation group: 'org.springframework.security', name: 'spring-security-web'
+        implementation group: 'org.springframework.security', name: 'spring-security-config'
+
+        implementation group: 'org.thymeleaf', name: 'thymeleaf'
+        implementation group: 'org.thymeleaf', name: 'thymeleaf-spring6'
+        implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity6'
+
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.springframework', name: 'spring-webflux'
+        implementation group: 'org.springframework', name: 'spring-r2dbc'
+
+        implementation group: 'io.projectreactor.netty', name: 'reactor-netty'
+        implementation group: 'io.r2dbc', name: 'r2dbc-h2'
+
+        compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+    }
+}
+
+project('recipe_5_8_v') {
+    dependencies {
+        implementation group: 'org.springframework.security', name: 'spring-security-web'
+        implementation group: 'org.springframework.security', name: 'spring-security-config'
+
+        implementation group: 'org.thymeleaf', name: 'thymeleaf'
+        implementation group: 'org.thymeleaf', name: 'thymeleaf-spring6'
+        implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity6'
+
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.springframework', name: 'spring-webflux'
+        implementation group: 'org.springframework', name: 'spring-r2dbc'
+
+        implementation group: 'io.projectreactor.netty', name: 'reactor-netty'
+        implementation group: 'io.r2dbc', name: 'r2dbc-h2'
+
+        compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+    }
+}

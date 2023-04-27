@@ -1,0 +1,22 @@
+description='Spring 6 Recipes :: Chapter 8 :: Spring Batch'
+
+subprojects { subproject ->
+
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    tasks.named('build') { finalizedBy('shadowJar') }
+
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-expression'
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.springframework', name: 'spring-jdbc'
+
+        implementation group: 'org.springframework.batch', name: 'spring-batch-core'
+
+        implementation group: 'com.h2database', name: 'h2'
+    }
+
+    jar {
+        manifest.attributes("Main-Class": "com.apress.spring6recipes.springbatch.Main")
+    }
+}

@@ -1,0 +1,85 @@
+description = 'Spring 6 Recipes :: Chapter 2 :: Spring MVC'
+
+project('recipe_2_shared') {
+    description = 'CH02 - Sample Shared Code'
+
+    defaultTasks 'build'
+
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
+
+        compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+        compileOnly group: 'jakarta.validation', name: 'jakarta.validation-api'
+    }
+}
+
+subprojects { subproject ->
+    if (!subproject.name.contains('shared')) {
+        apply plugin: 'war'
+        apply plugin: 'com.palantir.docker'
+        apply plugin: 'com.palantir.docker-run'
+
+        defaultTasks 'build', 'docker'
+
+        dependencies {
+            implementation(project(":ch02:recipe_2_shared"))
+            implementation group: 'org.springframework', name: 'spring-webmvc'
+            implementation group: 'jakarta.validation', name: 'jakarta.validation-api'
+            implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl'
+
+            compileOnly group: 'jakarta.servlet.jsp.jstl', name: 'jakarta.servlet.jsp.jstl-api'
+            compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+        }
+
+        war { archiveFileName = 'court.war' }
+
+        docker {
+            name "s6r/court-web:$project.name"
+            tags "$project.name"
+            files war.outputs
+            dockerfile file('../Dockerfile')
+        }
+
+        dockerRun {
+            name "s6r-court-web-$project.name"
+            image "s6r/court-web:$project.name"
+            ports '8080:8080'
+        }
+    }
+}
+
+project('recipe_2_9_iv') {
+
+    dependencies {
+        implementation group: 'jakarta.validation', name: 'jakarta.validation-api'
+    }
+}
+
+project('recipe_2_10') {
+
+    dependencies {
+        implementation group: 'jakarta.validation', name: 'jakarta.validation-api'
+        runtimeOnly group: 'org.hibernate.validator', name: 'hibernate-validator'
+    }
+}
+
+project('recipe_2_11') {
+
+    dependencies {
+        implementation group: 'jakarta.validation', name: 'jakarta.validation-api'
+        runtimeOnly group: 'org.hibernate.validator', name: 'hibernate-validator'
+        implementation group: 'com.github.librepdf', name: 'openpdf'
+        implementation group: 'org.apache.poi', name: 'poi-ooxml'
+    }
+}
+
+project('recipe_2_12') {
+
+    dependencies {
+        implementation group: 'jakarta.validation', name: 'jakarta.validation-api'
+        runtimeOnly group: 'org.hibernate.validator', name: 'hibernate-validator'
+        implementation group: 'com.github.librepdf', name: 'openpdf'
+        implementation group: 'org.apache.poi', name: 'poi-ooxml'
+    }
+}

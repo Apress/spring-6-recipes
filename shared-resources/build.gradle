@@ -1,0 +1,5 @@
+description = 'Spring 6 Recipes :: Shared Resources'
+
+defaultTasks 'clean', 'build'
+
+apply plugin: 'java-library'

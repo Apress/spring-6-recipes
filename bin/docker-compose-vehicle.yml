@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  s6r-postgres:
+    image: postgres:14.5-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=vehicle
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    networks:
+      - 's6r-network'
+
+networks:
+  s6r-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"

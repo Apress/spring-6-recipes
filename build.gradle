@@ -1,0 +1,129 @@
+plugins {
+    id 'com.github.ben-manes.versions' version '0.44.0'
+    id 'com.palantir.docker' version '0.34.0' apply false
+    id 'com.palantir.docker-run' version '0.34.0' apply false
+    id 'com.intershop.gradle.jaxb' version '5.2.1' apply false
+    id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
+}
+
+allprojects {
+    // Define repositorie to get dependencies
+    repositories {
+        mavenCentral()
+        // Public Spring artifacts snapshots
+        maven { url 'https://repo.spring.io/snapshot' }
+        maven { url 'https://repo.spring.io/milestone' }
+        // Snapshots for AspectJ
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+
+    }
+
+    configurations {
+        all {
+            exclude group: 'commons-logging', module: 'commons-logging'
+            // We want only to use JUnit Jupiter, so exclude JUnit4 artifacts
+            exclude group: 'junit', module: 'junit'
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+
+            resolutionStrategy.cacheChangingModulesFor 0, "minutes"
+        }
+
+        dependencyManagement {
+            canBeConsumed = false
+            canBeResolved = false
+            visible = false
+        }
+
+        matching {
+            it.name.endsWith('Classpath') || it.name.contains('providedCompile')
+        }.all { it.extendsFrom(dependencyManagement) }
+    }
+
+}
+
+subprojects { subproject ->
+
+    if (subproject.name != 'spring-6-recipes-dependencies') {
+
+        apply plugin: 'java'
+
+        defaultTasks 'build'
+
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(19)
+            }
+        }
+
+        tasks {
+            withType(JavaCompile).configureEach {
+                options.compilerArgs.add('-Xlint:all')
+                options.compilerArgs.add('-Xlint:-processing')
+                options.compilerArgs.add('--enable-preview')
+                options.compilerArgs.add('-parameters')
+            }
+
+            withType(Test).configureEach {
+                useJUnitPlatform()
+                jvmArgs.add('--enable-preview')
+                systemProperty("java.awt.headless", "true")
+            }
+
+            withType(JavaExec).configureEach {
+                jvmArgs.add('--enable-preview')
+                systemProperty("java.awt.headless", "true")
+            }
+
+            withType(Jar).configureEach {
+                duplicatesStrategy = DuplicatesStrategy.WARN
+            }
+        }
+
+        dependencies {
+
+            if (subproject.name.contains('recipe')) {
+                dependencyManagement(enforcedPlatform(dependencies.project(path: ':spring-6-recipes-dependencies')))
+
+                implementation project(':shared-resources')
+                // Logging, route everything through SLF4J
+                implementation group: 'org.slf4j', name: 'slf4j-api'
+                runtimeOnly group: 'org.slf4j', name: 'slf4j-simple'
+                runtimeOnly group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j'
+
+                // To suppress compiler warnings.
+                implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api'
+                compileOnly group: 'jakarta.inject', name: 'jakarta.inject-api'
+                compileOnly group: 'jakarta.validation', name: 'jakarta.validation-api'
+
+                // Add dependencies for testing (these will only be used for the testing phase)
+                testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+
+                testImplementation group: 'org.mockito', name: 'mockito-core'
+                testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter'
+                testImplementation group: 'org.springframework', name: 'spring-test'
+            }
+        }
+
+        tasks.register('uberJar', Jar) {
+            archiveClassifier = 'all'
+
+            from sourceSets.main.output
+
+            dependsOn configurations.runtimeClasspath
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+            from {
+                configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+            }
+        }
+    }
+}
+
+def isNonStable = { String version ->
+    def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { it -> version.toUpperCase().contains(it) }
+    def regex = /^[0-9,.v-]+(-r)?$/
+    return !stableKeyword && !(version ==~ regex)
+}
+
+dependencyUpdates.rejectVersionIf {
+    isNonStable(it.candidate.version)
+}

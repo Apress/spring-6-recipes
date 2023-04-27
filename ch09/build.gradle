@@ -1,0 +1,255 @@
+description = 'Spring 6 Recipes :: Chapter 9 :: Spring Data Access with NoSQL'
+
+subprojects { subproject ->
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-expression'
+        implementation group: 'org.springframework', name: 'spring-context'
+    }
+    // Define how to build final JAR for project
+    jar {
+        manifest.attributes("Main-Class": "com.apress.spring6recipes.nosql.Main")
+    }
+
+}
+
+project('recipe_9_1_i') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.mongodb', name: 'mongodb-driver-core'
+        implementation group: 'org.mongodb', name: 'mongodb-driver-sync'
+        implementation group: 'org.springframework.data', name: 'spring-data-mongodb'
+    }
+}
+
+project('recipe_9_1_ii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.mongodb', name: 'mongodb-driver-core'
+        implementation group: 'org.mongodb', name: 'mongodb-driver-sync'
+        implementation group: 'org.springframework.data', name: 'spring-data-mongodb'
+    }
+}
+
+project('recipe_9_1_iii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.mongodb', name: 'mongodb-driver-core'
+        implementation group: 'org.mongodb', name: 'mongodb-driver-sync'
+        implementation group: 'org.springframework.data', name: 'spring-data-mongodb'
+    }
+}
+
+project('recipe_9_1_iv') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.mongodb', name: 'mongodb-driver-core'
+        implementation group: 'org.mongodb', name: 'mongodb-driver-sync'
+        implementation group: 'org.springframework.data', name: 'spring-data-mongodb'
+    }
+}
+
+project('recipe_9_1_v') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.mongodb', name: 'mongodb-driver-core'
+        implementation group: 'org.mongodb', name: 'mongodb-driver-sync'
+        implementation group: 'org.springframework.data', name: 'spring-data-mongodb'
+    }
+}
+
+project('recipe_9_1_vi') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.mongodb', name: 'mongodb-driver-core'
+        implementation group: 'org.mongodb', name: 'mongodb-driver-reactivestreams'
+        implementation group: 'io.projectreactor', name: 'reactor-core'
+        implementation group: 'org.springframework.data', name: 'spring-data-mongodb'
+    }
+}
+
+
+project('recipe_9_2_i') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'redis.clients', name: 'jedis'
+    }
+}
+
+project('recipe_9_2_ii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'redis.clients', name: 'jedis'
+    }
+}
+
+project('recipe_9_2_iii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'redis.clients', name: 'jedis'
+    }
+}
+
+project('recipe_9_2_iv') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'redis.clients', name: 'jedis'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+    }
+}
+
+project('recipe_9_2_v') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'redis.clients', name: 'jedis'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'org.springframework.data', name: 'spring-data-redis'
+    }
+}
+
+project('recipe_9_2_vi') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'redis.clients', name: 'jedis'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'org.springframework.data', name: 'spring-data-redis'
+    }
+}
+
+project('recipe_9_2_vii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'redis.clients', name: 'jedis'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'org.springframework.data', name: 'spring-data-redis'
+    }
+}
+
+project('recipe_9_2_viii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'io.lettuce', name: 'lettuce-core'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'org.springframework.data', name: 'spring-data-redis'
+        implementation group: 'io.projectreactor', name: 'reactor-core'
+    }
+}
+
+
+project('recipe_9_3_i') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.neo4j', name: 'neo4j'
+        implementation group: 'org.neo4j.driver', name: 'neo4j-java-driver'
+    }
+}
+
+project('recipe_9_3_ii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.neo4j', name: 'neo4j'
+        implementation group: 'org.neo4j.driver', name: 'neo4j-java-driver'
+    }
+}
+
+project('recipe_9_3_iii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.neo4j', name: 'neo4j'
+        implementation group: 'org.neo4j.driver', name: 'neo4j-java-driver'
+    }
+}
+
+project('recipe_9_3_iv') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.neo4j', name: 'neo4j'
+        implementation group: 'org.neo4j.driver', name: 'neo4j-java-driver'
+    }
+}
+
+project('recipe_9_3_v') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.neo4j', name: 'neo4j'
+        implementation group: 'org.neo4j.driver', name: 'neo4j-java-driver'
+        implementation group: 'org.springframework.data', name: 'spring-data-neo4j'
+    }
+}
+
+project('recipe_9_3_vi') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.neo4j', name: 'neo4j'
+        implementation group: 'org.neo4j.driver', name: 'neo4j-java-driver'
+        implementation group: 'org.springframework.data', name: 'spring-data-neo4j'
+    }
+}
+
+project('recipe_9_3_vii') {
+
+    dependencies {
+        implementation group: 'org.neo4j', name: 'neo4j'
+        implementation group: 'org.neo4j.driver', name: 'neo4j-java-driver'
+        implementation group: 'org.springframework.data', name: 'spring-data-neo4j'
+    }
+}
+
+project('recipe_9_3_viii') {
+
+    dependencies {
+        implementation group: 'org.neo4j', name: 'neo4j'
+        implementation group: 'org.neo4j.driver', name: 'neo4j-java-driver'
+        implementation group: 'io.projectreactor', name: 'reactor-core'
+        implementation group: 'org.springframework.data', name: 'spring-data-neo4j'
+    }
+}
+
+project('recipe_9_4_i') {
+
+    dependencies {
+        implementation group: 'com.couchbase.client', name: 'java-client'
+    }
+}
+
+project('recipe_9_4_ii') {
+
+    dependencies {
+        implementation group: 'com.couchbase.client', name: 'java-client'
+    }
+}
+
+project('recipe_9_4_iii') {
+
+    dependencies {
+        implementation group: 'com.couchbase.client', name: 'java-client'
+        implementation group: 'org.springframework.data', name: 'spring-data-couchbase'
+    }
+}
+
+project('recipe_9_4_iv') {
+
+    dependencies {
+        implementation group: 'com.couchbase.client', name: 'java-client'
+        implementation group: 'org.springframework.data', name: 'spring-data-couchbase'
+    }
+}
+
+project('recipe_9_4_v') {
+
+    dependencies {
+        implementation group: 'com.couchbase.client', name: 'java-client'
+        implementation group: 'org.springframework.data', name: 'spring-data-couchbase'
+    }
+}
+
+project('recipe_9_4_vi') {
+
+    dependencies {
+        implementation group: 'com.couchbase.client', name: 'java-client'
+        implementation group: 'org.springframework.data', name: 'spring-data-couchbase'
+
+        implementation group: 'io.projectreactor', name: 'reactor-core'
+        implementation group: 'io.reactivex.rxjava3', name: 'rxjava'
+    }
+}

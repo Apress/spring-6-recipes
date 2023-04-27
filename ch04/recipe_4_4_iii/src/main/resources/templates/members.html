@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Members</title>
+</head>
+
+<body>
+
+<table style="border: 0px">
+
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+    </tr>
+    <tr th:each="member : ${members}">
+        <td th:text="${member.name}">John Doe</td>
+        <td th:text="${member.email}">john.doe@example.com</td>
+        <td th:text="${member.phone}">654321</td>
+    </tr>
+
+</table>
+</body>
+</html>

@@ -1,0 +1,311 @@
+description = 'Spring 6 Recipes :: Chapter 10 :: Spring Enterprise Integration'
+
+subprojects { subproject ->
+
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-core'
+        implementation group: 'org.springframework', name: 'spring-expression'
+        implementation group: 'org.springframework', name: 'spring-beans'
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.springframework', name: 'spring-context-support'
+        implementation group: 'org.springframework', name: 'spring-aop'
+    }
+
+    jar {
+        manifest.attributes("Main-Class": "com.apress.spring6recipes.replicator.Main")
+    }
+
+    tasks.named('build') { finalizedBy('shadowJar') }
+}
+
+project('recipe_10_3_i') {
+
+    jar {
+        manifest.attributes("Main-Class": "com.apress.spring6recipes.replicator.Client")
+    }
+}
+
+project('recipe_10_3_ii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.aspectj', name: 'aspectjtools'
+    }
+    // Define how to build final JAR for project
+    jar {
+        manifest.attributes("Main-Class": "com.apress.spring6recipes.replicator.Client")
+    }
+}
+
+project('recipe_10_4_i') {
+    dependencies {
+        implementation group: 'com.sun.mail', name: 'jakarta.mail'
+    }
+}
+
+project('recipe_10_4_ii') {
+    dependencies {
+        implementation group: 'com.sun.mail', name: 'jakarta.mail'
+    }
+    // Define how to build final JAR for project
+} // End 15_4_ii project 
+
+// Define 15_4_iii project
+project('recipe_10_4_iii') {
+    dependencies {
+        implementation group: 'com.sun.mail', name: 'jakarta.mail'
+    }
+    // Define how to build final JAR for project
+} // End 15_4_iii project 
+
+// Define 15_4_iv project
+project('recipe_10_4_iv') {
+    dependencies {
+        implementation group: 'com.sun.mail', name: 'jakarta.mail'
+    }
+} // End 15_4_iv project 
+
+// Define 15_4_v project
+project('recipe_10_4_v') {
+    dependencies {
+        implementation group: 'com.sun.mail', name: 'jakarta.mail'
+    }
+} // End 15_4_v project 
+
+// Define 15_5_i project
+project('recipe_10_5_i') {
+    dependencies {
+        implementation group: 'org.quartz-scheduler', name: 'quartz'
+    }
+} // End 15_5_i
+
+// Define 15_5_ii project
+project('recipe_10_5_ii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.quartz-scheduler', name: 'quartz'
+    }
+    // Define how to build final JAR for project
+} // End 15_5_ii
+
+// Define 15_5_iii project
+project('recipe_10_5_iii') {
+
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-tx'
+        implementation group: 'org.quartz-scheduler', name: 'quartz'
+    }
+    // Define how to build final JAR for project
+} // End 15_5_iii
+
+// Define 15_5_iv project
+project('recipe_10_5_iv') {
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-tx'
+        implementation group: 'org.quartz-scheduler', name: 'quartz'
+    }
+} // End 15_5_iv
+
+// Define 15_6_i project
+project('recipe_10_6_i') {
+    dependencies {
+        implementation group: 'org.aspectj', name: 'aspectjtools'
+    }
+} // End 15_6_i
+
+// Define 15_6_ii project
+project('recipe_10_6_ii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.aspectj', name: 'aspectjtools'
+    }
+} // End 15_6_ii
+
+project('recipe_10_8_SpringWS_Server') {
+    // Define usage of war plugin
+    apply plugin: 'war'
+    apply plugin: 'com.palantir.docker'
+    apply plugin: 'com.palantir.docker-run'
+
+    // Define defaulttasks, first clean, then build, then war
+    defaultTasks 'clean', 'build', 'war'
+    // Define dependencies
+    war {
+        archiveFileName = 'springws.war'
+    }
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-web'
+        implementation group: 'org.springframework', name: 'spring-oxm'
+
+        implementation group: 'org.springframework.ws', name: 'spring-ws-core'
+        implementation group: 'org.springframework.ws', name: 'spring-xml'
+        implementation group: 'wsdl4j', name: 'wsdl4j'
+        implementation group: 'org.dom4j', name: 'dom4j'
+        implementation group: 'jaxen', name: 'jaxen'
+        implementation group: 'jakarta.jws', name: 'jakarta.jws-api'
+        compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+    }
+
+    docker {
+        name "s6r/spring-ws:$project.name"
+        tags "$project.name"
+        files war.outputs
+        dockerfile file('../Dockerfile')
+    }
+
+    dockerRun {
+        name "s6r-spring-ws-$project.name"
+        image "s6r/spring-ws:$project.name"
+        ports '8080:8080'
+    }
+}
+
+project('recipe_10_8_SpringWS_Client') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-web'
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-oxm'
+
+        implementation group: 'org.aspectj', name: 'aspectjtools'
+        implementation group: 'org.springframework.ws', name: 'spring-ws-core'
+        implementation group: 'org.springframework.ws', name: 'spring-xml'
+        implementation group: 'org.dom4j', name: 'dom4j'
+    }
+    // Define how to build final JAR for project
+    jar {
+        manifest.attributes("Main-Class": "com.apress.spring6recipes.weather.SpringWSInvokerClient")
+    }
+}
+
+project('recipe_10_9_SpringWS_Server') {
+    // Define usage of war plugin
+    apply plugin: 'war'
+    apply plugin: 'com.palantir.docker'
+    apply plugin: 'com.palantir.docker-run'
+
+    // Define defaulttasks, first clean, then build, then war
+    defaultTasks 'clean', 'build', 'war'
+    // Define dependencies
+    war {
+        archiveFileName = 'springws.war'
+    }
+
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-web'
+        implementation group: 'org.springframework', name: 'spring-oxm'
+
+        implementation group: 'org.springframework.ws', name: 'spring-ws-core'
+        implementation group: 'org.springframework.ws', name: 'spring-xml'
+        implementation group: 'wsdl4j', name: 'wsdl4j'
+        implementation group: 'com.sun.xml.bind', name: 'jaxb-core'
+        implementation group: 'com.sun.xml.bind', name: 'jaxb-impl'
+        compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+    }
+
+    docker {
+        name "s6r/spring-ws:$project.name"
+        tags "$project.name"
+        files war.outputs
+        dockerfile file('../Dockerfile')
+    }
+
+    dockerRun {
+        name "s6r-spring-ws-$project.name"
+        image "s6r/spring-ws:$project.name"
+        ports '8080:8080'
+    }
+}
+
+project('recipe_10_9_SpringWS_Client') {
+
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-web'
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-oxm'
+
+        implementation group: 'org.springframework.ws', name: 'spring-ws-core'
+        implementation group: 'org.springframework.ws', name: 'spring-xml'
+        implementation group: 'com.sun.xml.bind', name: 'jaxb-core'
+        implementation group: 'com.sun.xml.bind', name: 'jaxb-impl'
+
+    }
+
+    jar {
+        manifest.attributes("Main-Class": "com.apress.spring6recipes.weather.SpringWSInvokerClient")
+    }
+}
+
+project('recipe_10_11_i') {
+
+    apply plugin: 'war'
+    apply plugin: 'com.palantir.docker'
+    apply plugin: 'com.palantir.docker-run'
+
+    dependencies {
+        implementation(project(":ch03:recipe_3_shared"))
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-oxm'
+        implementation group: 'com.sun.xml.bind', name: 'jaxb-core'
+        implementation group: 'com.sun.xml.bind', name: 'jaxb-impl'
+        implementation group: 'io.micrometer', name: 'micrometer-registry-jmx'
+
+        compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+
+    }
+
+    war { archiveFileName = 'court.war' }
+
+    docker {
+        name "s6r/court-web:$project.name"
+        tags "$project.name"
+        files war.outputs
+        dockerfile file('./Dockerfile')
+    }
+
+    dockerRun {
+        name "s6r-court-web-$project.name"
+        image "s6r/court-web:$project.name"
+        ports '8080:8080'
+    }
+
+}
+
+project('recipe_10_11_ii') {
+
+    apply plugin: 'war'
+    apply plugin: 'com.palantir.docker'
+    apply plugin: 'com.palantir.docker-run'
+
+    dependencies {
+        implementation(project(":ch03:recipe_3_shared"))
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-oxm'
+        implementation group: 'com.sun.xml.bind', name: 'jaxb-core'
+        implementation group: 'com.sun.xml.bind', name: 'jaxb-impl'
+        implementation group: 'io.micrometer', name: 'micrometer-registry-jmx'
+
+        compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+
+    }
+
+    war { archiveFileName = 'court.war' }
+
+    docker {
+        name "s6r/court-web:$project.name"
+        tags "$project.name"
+        files war.outputs
+        dockerfile file('./Dockerfile')
+    }
+
+    dockerRun {
+        name "s6r-court-web-$project.name"
+        image "s6r/court-web:$project.name"
+        ports '8080:8080'
+    }
+
+}

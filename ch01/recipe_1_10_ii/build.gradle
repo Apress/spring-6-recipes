@@ -1,0 +1,8 @@
+dependencies {
+
+    implementation group: 'org.springframework', name: 'spring-context'
+}
+
+jar {
+    manifest.attributes('Main-Class': 'com.apress.springrecipes.shop.Main')
+}

@@ -1,0 +1,90 @@
+description = 'Spring 6 Recipes :: Chapter 6 :: Spring Data Access'
+
+subprojects { subproject ->
+
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.postgresql', name: 'postgresql'
+        implementation group: 'com.zaxxer', name: 'HikariCP'
+    }
+
+    if (subproject.name.contains('course') || subproject.name.contains('vehicle')) {
+        return
+    }
+
+    if (subproject.name.startsWith('recipe_6_0_')
+            || subproject.name.startsWith('recipe_6_1_')
+            || subproject.name.startsWith('recipe_6_2_')
+            || subproject.name.startsWith('recipe_6_3_')
+            || subproject.name.startsWith('recipe_6_4_')
+            || subproject.name.startsWith('recipe_6_5_')) {
+        // Define dependencies
+        dependencies {
+            implementation project(':ch06:recipe_6_vehicle')
+        }
+    } else {
+
+        // Define dependencies
+        dependencies {
+            implementation project(':ch06:recipe_6_course')
+        }
+    }
+}
+
+project('recipe_6_course') {
+
+    apply plugin: 'java-library'
+
+    dependencies {
+        api group: 'org.springframework', name: 'spring-orm'
+        api group: 'org.hibernate.orm', name: 'hibernate-core'
+    }
+}
+project('recipe_6_vehicle') {
+
+    apply plugin: 'java-library'
+
+    dependencies {
+        api group: 'org.springframework', name: 'spring-jdbc'
+    }
+
+}
+
+project('recipe_6_10') {
+
+    dependencies {
+        implementation group: 'org.springframework.data', name: 'spring-data-jpa'
+    }
+}
+
+project('recipe_6_11_i') {
+
+    dependencies {
+        implementation group: 'org.postgresql', name: 'r2dbc-postgresql'
+        implementation group: 'org.springframework', name: 'spring-r2dbc'
+    }
+}
+
+project('recipe_6_11_ii') {
+
+    dependencies {
+        implementation group: 'org.postgresql', name: 'r2dbc-postgresql'
+        implementation group: 'org.springframework', name: 'spring-r2dbc'
+    }
+}
+
+project('recipe_6_11_iii') {
+
+    dependencies {
+        implementation group: 'org.postgresql', name: 'r2dbc-postgresql'
+        implementation group: 'org.springframework.data', name: 'spring-data-r2dbc'
+    }
+}
+
+project('recipe_6_11_iv') {
+
+    dependencies {
+        implementation group: 'org.postgresql', name: 'r2dbc-postgresql'
+        implementation group: 'org.springframework.data', name: 'spring-data-r2dbc'
+    }
+}

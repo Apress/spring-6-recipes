@@ -1,0 +1,14 @@
+description = 'Spring 6 Recipes :: Chapter 1 :: Spring Core Tasks'
+
+subprojects {
+    subproject ->
+
+        apply plugin: 'com.github.johnrengelman.shadow'
+
+        dependencies {
+            implementation group: 'org.springframework', name: 'spring-context'
+        }
+
+        tasks.named('build') { finalizedBy('shadowJar') }
+}
+

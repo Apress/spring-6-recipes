@@ -1,0 +1,162 @@
+description = 'Spring 6 Recipes :: Chapter 4 :: Spring Webflux'
+
+configure(subprojects.findAll { !it.name.contains('shared')}) {
+
+    apply plugin: 'java'
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    tasks.named('build') { finalizedBy('shadowJar') }
+
+    dependencies {
+        implementation(project(":ch04:recipe_4_shared"))
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.springframework', name: 'spring-webflux'
+        implementation group: 'io.projectreactor.netty', name: 'reactor-netty-http'
+    }
+}
+
+project('recipe_4_2_i') {
+    dependencies {
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310'
+    }
+}
+
+project('recipe_4_2_ii') {
+    dependencies {
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310'
+        implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
+        implementation group: 'org.glassfish', name: 'jakarta.el'
+    }
+}
+
+project('recipe_4_3_i') {
+    dependencies {
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310'
+        implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
+        implementation group: 'org.glassfish', name: 'jakarta.el'
+    }
+}
+
+project('recipe_4_3_ii') {
+    dependencies {
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310'
+        implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
+        implementation group: 'org.glassfish', name: 'jakarta.el'
+    }
+}
+
+project('recipe_4_3_iii') {
+    dependencies {
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310'
+        implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
+        implementation group: 'org.glassfish', name: 'jakarta.el'
+    }
+}
+
+project('recipe_4_4_i') {
+    dependencies {
+        implementation group: 'org.thymeleaf', name: 'thymeleaf'
+        implementation group: 'org.thymeleaf', name: 'thymeleaf-spring6'
+    }
+}
+
+project('recipe_4_4_ii') {
+    dependencies {
+        implementation group: 'org.thymeleaf', name: 'thymeleaf'
+        implementation group: 'org.thymeleaf', name: 'thymeleaf-spring6'
+    }
+}
+
+project('recipe_4_4_iii') {
+    dependencies {
+        implementation group: 'org.thymeleaf', name: 'thymeleaf'
+        implementation group: 'org.thymeleaf', name: 'thymeleaf-spring6'
+    }
+}
+
+project('recipe_4_4_iv') {
+    dependencies {
+        implementation group: 'org.thymeleaf', name: 'thymeleaf'
+        implementation group: 'org.thymeleaf', name: 'thymeleaf-spring6'
+    }
+}
+
+project('recipe_4_4_v') {
+    dependencies {
+        implementation group: 'org.thymeleaf', name: 'thymeleaf'
+        implementation group: 'org.thymeleaf', name: 'thymeleaf-spring6'
+        implementation group: 'org.hibernate.validator', name: 'hibernate-validator'
+        implementation group: 'org.glassfish', name: 'jakarta.el'
+
+    }
+}
+
+project('recipe_4_5_i') {
+    dependencies {
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310'
+    }
+}
+
+
+project('recipe_4_1_ii') {
+
+    apply plugin: 'war'
+    apply plugin: 'com.palantir.docker'
+    apply plugin: 'com.palantir.docker-run'
+
+    dependencies {
+        providedCompile group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+    }
+
+    docker {
+        name "s6r/court-flux:$project.name"
+        tags "$project.name"
+        files war.outputs
+        dockerfile file('../Dockerfile')
+    }
+
+    dockerRun {
+        name "s6r-court-flux-$project.name"
+        image "s6r/court-flux:$project.name"
+        ports '8080:8080'
+    }
+}
+
+project('recipe_4_1_iii') {
+    apply plugin: 'war'
+    apply plugin: 'com.palantir.docker'
+    apply plugin: 'com.palantir.docker-run'
+
+    dependencies {
+        providedCompile group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+    }
+
+    docker {
+        name "s6r/court-flux:$project.name"
+        tags "$project.name"
+        files war.outputs
+        dockerfile file('../Dockerfile')
+    }
+
+    dockerRun {
+        name "s6r-court-flux-$project.name"
+        image "s6r/court-flux:$project.name"
+        ports '8080:8080'
+    }
+}
+
+project('recipe_4_shared') {
+
+    apply plugin: 'java-library'
+
+    dependencies {
+        api group: 'org.springframework', name: 'spring-context'
+        api group: 'io.projectreactor.netty', name: 'reactor-netty'
+    }
+}

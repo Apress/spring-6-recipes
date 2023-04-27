@@ -1,0 +1,147 @@
+description = 'Spring 6 Recipes :: Chapter 12 :: Spring Integration'
+
+subprojects { subproject ->
+
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.springframework', name: 'spring-messaging'
+        implementation group: 'org.springframework.integration', name: 'spring-integration-core'
+
+        // No activemq-all as that includes dependencies we don't want
+        implementation group: 'org.apache.activemq', name: 'artemis-jakarta-server'
+        implementation group: 'org.apache.activemq', name: 'artemis-jakarta-server'
+        implementation group: 'jakarta.jms', name: 'jakarta.jms-api'
+    }
+}
+
+// Define project
+project('recipe_12_2_i') {
+    // Define additional dependencies
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-jms'
+    }
+} // End
+
+// Define project
+project('recipe_12_2_ii') {
+    // Define additional dependencies
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-jms'
+    }
+} // End
+
+// Define project
+project('recipe_12_3_i') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-jms'
+        implementation group: 'org.springframework.integration', name: 'spring-integration-file'
+    }
+} // End
+
+// Define project
+project('recipe_12_3_ii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-jms'
+        implementation group: 'org.springframework.integration', name: 'spring-integration-file'
+    }
+} // End
+
+// Define project
+project('recipe_12_3_iii') {
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-jms'
+        implementation group: 'org.springframework.integration', name: 'spring-integration-file'
+    }
+} // End
+
+// Define project
+project('recipe_12_4_i') {
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-file'
+    }
+} // End
+
+// Define project
+project('recipe_12_5_i') {
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-jms'
+    }
+} // End
+
+
+// Define project
+project('recipe_12_5_ii') {
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-jms'
+    }
+} // End
+
+// Define project
+project('recipe_12_6_i') {
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-jms'
+    }
+} // End
+
+// Define project
+project('recipe_12_6_ii') {
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-jms'
+    }
+} // End
+
+// Define project
+project('recipe_12_6_iii') {
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-jms'
+    }
+} // End
+
+// Define project
+project('recipe_12_7_i') {
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-file'
+    }
+} // End
+
+// Define project
+project('recipe_12_7_i') {
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-file'
+    }
+} // End
+
+// Define project
+project('recipe_12_7_ii') {
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-file'
+    }
+} // End
+
+// Define project
+project('recipe_12_8') {
+    dependencies {
+        // IRC Client
+        implementation group: 'org.springframework.integration', name: 'spring-integration-file'
+    }
+} // End
+
+// Define project
+project('recipe_12_9') {
+    dependencies {
+        // IRC Client
+        implementation group: 'org.springframework.integration', name: 'spring-integration-file'
+        implementation group: 'org.springframework.batch', name: 'spring-batch-integration'
+    }
+} // End
+
+// Define project
+project('recipe_12_10_ii') {
+    dependencies {
+        implementation group: 'org.springframework.integration', name: 'spring-integration-jms'
+    }
+} // End

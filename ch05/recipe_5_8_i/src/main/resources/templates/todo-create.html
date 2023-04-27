@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Message Post</title>
+    <link type="text/css" rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+</head>
+
+<body>
+<div class="ui container">
+    <h4>New To-do</h4>
+    <form method="POST" th:object="${todo}" th:action="@{/todos}" action="#" class="ui form">
+        <fieldset>
+            <legend>To-do</legend>
+            <div class="field">
+                <label for="description">To-do</label>
+                <input type="text" th:field="*{description}"/>
+            </div>
+            <div class="field">
+                <label for="completed">Completed</label>
+                <input type="checkbox" th:field="*{completed}" />
+            </div>
+            <button class="ui mini primary button">Save <i class="send icon"></i></button>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>

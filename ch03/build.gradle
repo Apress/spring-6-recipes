@@ -1,0 +1,78 @@
+description = 'Spring 6 Recipes :: Chapter 3 :: Spring REST'
+
+project('recipe_3_shared') {
+
+	apply plugin: 'java-library'
+
+	description = 'CH03 - Sample Shared Code'
+
+	defaultTasks 'build'
+
+	dependencies {
+		implementation group: 'org.springframework', name: 'spring-context'
+		implementation group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api'
+	}
+}
+
+subprojects { subproject ->
+	if (!subproject.name.contains('shared')) {
+		apply plugin: 'war'
+		apply plugin: 'com.palantir.docker'
+		apply plugin: 'com.palantir.docker-run'
+
+		defaultTasks 'build', 'docker'
+
+		dependencies {
+			implementation(project(":ch03:recipe_3_shared"))
+			implementation group: 'org.springframework', name: 'spring-oxm'
+			implementation group: 'org.springframework', name: 'spring-webmvc'
+			implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime'
+			implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+			implementation group: 'jakarta.validation', name: 'jakarta.validation-api'
+			runtimeOnly group: 'org.hibernate.validator', name: 'hibernate-validator'
+			compileOnly group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+		}
+
+		if (subproject.name.startsWith('recipe_3_4_')) {
+			defaultTasks 'clean', 'build'
+
+			jar {
+				manifest.attributes("Main-Class": "com.apress.spring6recipes.court.Main")
+			}
+		}
+
+		war { archiveFileName = 'court.war' }
+
+		docker {
+			name "s6r/court-rest:$project.name"
+			tags "$project.name"
+			files war.outputs
+			dockerfile file('../Dockerfile')
+		}
+
+		dockerRun {
+			name "s6r-court-rest-$project.name"
+			image "s6r/court-rest:$project.name"
+			ports '8080:8080'
+		}
+	}
+}
+
+project('recipe_3_2_iv') { project ->
+	dependencies {
+		implementation group: 'com.google.code.gson', name: 'gson'
+	}
+}
+
+project('recipe_3_2_v') { project ->
+	dependencies {
+		implementation group: 'com.google.code.gson', name: 'gson'
+	}
+}
+
+
+project('recipe_3_5_i') {
+	dependencies {
+		implementation group: 'com.rometools', name: 'rome'
+	}
+}

@@ -1,0 +1,41 @@
+description = 'Spring 6 Recipes :: Chapter 14 :: Caching'
+
+subprojects { subproject ->
+
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.springframework', name: 'spring-context-support'
+        implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine'
+    }
+
+    jar {
+        manifest.attributes('Main-Class': 'com.apress.spring6recipes.caching.Main')
+    }
+
+    tasks.named('build') { finalizedBy('shadowJar') }
+}
+
+project('recipe_14_3_ii') {
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-aspects'
+        implementation group: 'org.springframework', name: 'spring-instrument'
+        implementation group: 'org.aspectj', name: 'aspectjweaver'
+        implementation group: 'org.aspectj', name: 'aspectjrt'
+    }
+}
+
+project('recipe_14_6_i') {
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-jdbc'
+        implementation group: 'com.h2database', name: 'h2'
+    }
+}
+
+project('recipe_14_7_i') {
+    dependencies {
+        implementation group: 'redis.clients', name: 'jedis'
+        implementation group: 'org.springframework.data', name: 'spring-data-redis'
+    }
+}

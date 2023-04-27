@@ -1,0 +1,57 @@
+description='Spring Recipes :: Chapter 7 :: Spring Transaction Management'
+
+subprojects { subproject ->
+    // Define dependencies
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.springframework', name: 'spring-jdbc'
+
+        implementation group: 'org.postgresql', name: 'postgresql'
+    }
+
+    uberJar {
+        manifest.attributes("Main-Class": "com.apress.spring6recipes.bookshop.Main")
+    }
+}
+
+project('recipe_7_3_i') {
+
+    dependencies {
+        implementation group: 'org.postgresql', name: 'r2dbc-postgresql'
+        implementation group: 'org.springframework', name: 'spring-r2dbc'
+    }
+}
+
+project('recipe_7_4_i') {
+
+    dependencies {
+        implementation group: 'org.postgresql', name: 'r2dbc-postgresql'
+        implementation group: 'org.springframework', name: 'spring-r2dbc'
+    }
+}
+
+project('recipe_7_4_ii') {
+
+    dependencies {
+        implementation group: 'org.postgresql', name: 'r2dbc-postgresql'
+        implementation group: 'org.springframework', name: 'spring-r2dbc'
+    }
+}
+
+project('recipe_7_5_i') {
+
+    dependencies {
+        implementation group: 'org.postgresql', name: 'r2dbc-postgresql'
+        implementation group: 'org.springframework', name: 'spring-r2dbc'
+    }
+}
+
+project('recipe_7_10_i') {
+
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-aspects'
+        implementation group: 'org.springframework', name: 'spring-instrument'
+        implementation group: 'org.aspectj', name: 'aspectjweaver'
+    }
+}
+

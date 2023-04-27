@@ -1,0 +1,117 @@
+version: '3.9'
+name: 'spring-6-recipes'
+services:
+  s6r-postgres:
+    image: postgres:14.5-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=vehicles
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ../ch09/recipe_09_vehicle/src/main/resources/sql/vehicle.sql:/docker-entrypoint-initdb.d/create-schema.sql
+    ports:
+      - '5432:5432'
+    networks:
+      - 's6r-network'
+
+  s6r-couchbase:
+    image: couchbase:community
+    restart: always
+    ports:
+      - '8091-8097:8091-8097'
+      - '11210:11210'
+      - '11207:11207'
+      - '18091-18097:18091-18097'
+    networks:
+      - 's6r-network'
+
+  s6r-artemis:
+    image: quay.io/artemiscloud/activemq-artemis-broker:artemis.2.27.0
+    restart: always
+    environment:
+      - AMQ_USER=admin
+      - AMQ_PASSWORD=admin
+    ports:
+      - '61616:61616'
+      - '8161:8161'
+    networks:
+      - 's6r-network'
+
+  s6r-greenmail:
+    image: greenmail/standalone:1.6.11
+    restart: always
+    ports:
+      - '3025:3025'
+      - '3110:3110'
+      - '3143:3143'
+      - '3465:3465'
+      - '3993:3993'
+      - '3995:3995'
+      - '8080:8080'
+    networks:
+      - 's6r-network'
+
+  s6r-ldap:
+    image: tnguyen1/ldap-opends
+    restart: always
+    environment:
+      - LDAP_PASSWORD=ldap
+      - LDAP_BASEDN="dc=spring6recipes,dc=com"
+    volumes:
+      - ../ch07/recipe_7_3_v/src/main/resources/ldap:/ldif
+    ports:
+      - '1389:1389'
+    networks:
+      - 's6r-network'
+
+  s6r-mongo:
+    image: mongo:5.0
+    restart: always
+    ports:
+      - '27017:27017'
+    networks:
+      - 's6r-network'
+
+  s6r-neo4j:
+    image: neo4j:4.4-community
+    restart: always
+    environment:
+      - NEO4J_AUTH=none
+    ports:
+      - '7687:7687'
+    networks:
+      - 's6r-network'
+
+  s6r-rabbitmq:
+    image: rabbitmq:management
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - 's6r-network'
+
+  s6r-redis:
+    image: redis:7.0-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - 's6r-network'
+
+  s6r-cassandra:
+    image: cassandra:4.0
+    restart: always
+    environment:
+      - CASSANDRA_CLUSTER_NAME=s6r-cluster
+    ports:
+      - '9842:9842'
+    networks:
+      - 's6r-network'
+
+networks:
+  s6r-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"

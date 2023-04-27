@@ -1,0 +1,131 @@
+description = 'Spring Recipes :: Chapter 11 :: Spring Messaging'
+
+subprojects { subproject ->
+
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    tasks.named('build') { finalizedBy('shadowJar') }
+
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-expression'
+        implementation group: 'org.springframework', name: 'spring-context'
+        implementation group: 'org.springframework', name: 'spring-jms'
+        implementation group: 'org.springframework', name: 'spring-tx'
+
+        implementation group: 'jakarta.jms', name: 'jakarta.jms-api'
+        implementation group: 'org.apache.activemq', name: 'artemis-jakarta-client'
+        implementation group: 'org.apache.activemq', name: 'artemis-jakarta-server'
+    }
+}
+
+configure(subprojects.findAll { p -> p.name.contains('Front') }) {
+    jar {
+        manifest.attributes("Main-Class": "com.apress.spring6recipes.post.FrontDeskMain")
+    }
+}
+
+configure(subprojects.findAll { p -> p.name.contains('Back') }) {
+    jar {
+        manifest.attributes("Main-Class": "com.apress.spring6recipes.post.BackOfficeMain")
+    }
+}
+
+project('recipe_11_3_BackOffice') {
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-aop'
+        implementation group: 'org.aspectj', name: 'aspectjtools'
+    }
+}
+
+project('recipe_11_3_FrontDesk') {
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-aop'
+        implementation group: 'org.aspectj', name: 'aspectjtools'
+    }
+}
+
+project('recipe_11_5_BackOffice') {
+
+    dependencies {
+        implementation group: 'org.messaginghub', name: 'pooled-jms';
+    }
+}
+
+project('recipe_11_5_FrontDesk') {
+
+    dependencies {
+        implementation group: 'org.messaginghub', name: 'pooled-jms';
+    }
+}
+
+project('recipe_11_6_i_BackOffice') {
+
+    dependencies {
+        implementation group: 'org.springframework.amqp', name: 'spring-rabbit'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+    }
+}
+
+project('recipe_11_6_i_FrontDesk') {
+
+    dependencies {
+        implementation group: 'org.springframework.amqp', name: 'spring-rabbit'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+    }
+}
+
+project('recipe_11_6_ii_BackOffice') {
+
+    dependencies {
+        implementation group: 'org.springframework.amqp', name: 'spring-rabbit'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+    }
+}
+
+project('recipe_11_6_ii_FrontDesk') {
+
+    dependencies {
+        implementation group: 'org.springframework.amqp', name: 'spring-rabbit'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+    }
+}
+
+project('recipe_11_7_i_BackOffice') {
+
+    dependencies {
+        implementation group: 'org.springframework.kafka', name: 'spring-kafka'
+        implementation group: 'org.apache.kafka', name: 'kafka-clients'
+
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+    }
+}
+
+project('recipe_11_7_i_FrontDesk') {
+
+    dependencies {
+        implementation group: 'org.springframework.kafka', name: 'spring-kafka'
+        implementation group: 'org.apache.kafka', name: 'kafka-clients'
+
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+    }
+}
+
+project('recipe_11_7_ii_BackOffice') {
+
+    dependencies {
+        implementation group: 'org.springframework.kafka', name: 'spring-kafka'
+        implementation group: 'org.apache.kafka', name: 'kafka-clients'
+
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+    }
+}
+
+project('recipe_11_7_ii_FrontDesk') {
+
+    dependencies {
+        implementation group: 'org.springframework.kafka', name: 'spring-kafka'
+        implementation group: 'org.apache.kafka', name: 'kafka-clients'
+
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+    }
+}

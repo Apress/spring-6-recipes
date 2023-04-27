@@ -1,0 +1,44 @@
+import static groovy.io.FileType.DIRECTORIES
+import static groovy.io.FileVisitResult.SKIP_SUBTREE
+
+pluginManagement {
+	repositories {
+		mavenCentral()
+		gradlePluginPortal()
+		maven {
+			url 'https://repo.spring.io/release'
+		}
+	}
+}
+
+plugins {
+	id "com.gradle.enterprise" version "3.10.2"
+}
+
+rootProject.name="Spring 6 Recipes - Sources"
+
+include 'spring-6-recipes-dependencies'
+include 'shared-resources'
+
+
+def includeDirs = ~/^(?i)(ch|recipe|appendix).*$/
+def preDir = {
+    // For now exclude directories not working on to increase performance
+    if (!includeDirs.matcher(it.name).matches()) {
+        return SKIP_SUBTREE
+    }
+}
+
+def getProjectName(String dir) {
+    return (dir - (rootDir.toString() + "/")).replaceAll("/", ":")
+}
+
+file("${rootDir}").traverse( type: DIRECTORIES, preDir: preDir) { dir ->
+
+    def dstr = dir.toString()
+
+    if (dir.name.contains('recipe') || dir.name.contains('appendix')) {
+        def projectName = getProjectName(dstr)
+        include projectName
+    }
+}

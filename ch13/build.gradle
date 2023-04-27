@@ -1,0 +1,381 @@
+description = 'Spring 6 Recipes :: Chapter 13 :: Spring Testing'
+
+project('recipe_13_bank') {
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-jdbc'
+    }
+}
+
+project('recipe_13_1_i') {
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+    }
+}
+
+project('recipe_13_1_ii') {
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+    }
+} 
+
+project('recipe_13_1_iii') {
+
+    dependencies {
+        testImplementation group: 'org.testng', name: 'testng'
+    }
+
+    test {
+        useTestNG()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+}
+
+project('recipe_13_1_iv') {
+
+    test {
+        useTestNG()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        testImplementation group: 'org.testng', name: 'testng'
+    }
+
+} 
+
+project('recipe_13_2_i') {
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+    }
+} 
+
+project('recipe_13_2_ii') {
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+    }
+} 
+
+project('recipe_13_2_iii') {
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+    }
+} 
+
+project('recipe_13_2_iv') {
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+    }
+} 
+
+project('recipe_13_2_v') {
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+    }
+} 
+
+project('recipe_13_3_i') {
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+        testImplementation group: 'org.springframework', name: 'spring-test'
+    }
+}
+
+project('recipe_13_3_ii') {
+
+    test {
+        useTestNG()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        testImplementation group: 'org.testng', name: 'testng'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+        testImplementation group: 'org.springframework', name: 'spring-test'
+    }
+} 
+
+project('recipe_13_4_i') {
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+        testImplementation group: 'org.springframework', name: 'spring-test'
+    }
+} 
+
+project('recipe_13_4_ii') {
+
+    test {
+        useTestNG()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        testImplementation group: 'org.testng', name: 'testng'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+        testImplementation group: 'org.springframework', name: 'spring-test'
+    }
+} 
+
+project('recipe_13_5_i') {
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-jdbc'
+        implementation group: 'com.h2database', name: 'h2'
+
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+        testImplementation group: 'org.springframework', name: 'spring-test'
+    }
+
+} 
+
+project('recipe_13_5_ii') {
+
+    test {
+        useTestNG()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-jdbc'
+        implementation group: 'com.h2database', name: 'h2'
+
+        testImplementation group: 'org.testng', name: 'testng'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+        testImplementation group: 'org.springframework', name: 'spring-test'
+    }
+} 
+
+project('recipe_13_6_i') {
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-jdbc'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'com.h2database', name: 'h2'
+        implementation group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+        testImplementation group: 'org.springframework', name: 'spring-test'
+        testImplementation group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+
+    }
+}
+
+project('recipe_13_6_ii') {
+
+    test {
+        useTestNG()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-jdbc'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'com.h2database', name: 'h2'
+        implementation group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+
+        testImplementation group: 'org.testng', name: 'testng'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+        testImplementation group: 'org.springframework', name: 'spring-test'
+        testImplementation group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+
+    }
+}
+
+project('recipe_13_7_i') {
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-jdbc'
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+        implementation group: 'com.h2database', name: 'h2'
+        implementation group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+        testImplementation group: 'org.springframework', name: 'spring-test'
+        testImplementation group: 'jakarta.servlet', name: 'jakarta.servlet-api'
+        testImplementation group: 'org.hamcrest', name: 'hamcrest' // Needed for Spring Test Context
+
+    }
+}
+
+project('recipe_13_8_i') {
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-jdbc'
+        implementation group: 'org.postgresql', name: 'postgresql'
+
+        // Testcontainers dependencies
+        testImplementation group: 'org.testcontainers', name: 'junit-jupiter'
+        testImplementation group: 'org.testcontainers', name: 'postgresql'
+        // Some empty JUnit4 classes as Testcontainers has a hard dependency on them :(
+        testImplementation group: 'io.quarkus', name: 'quarkus-junit4-mock', version: '2.11.2.Final'
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+        testImplementation group: 'org.springframework', name: 'spring-test'
+    }
+
+}
+
+project('recipe_13_8_ii') {
+
+    test {
+        useTestNG()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+
+    dependencies {
+        implementation project(':ch13:recipe_13_bank')
+        implementation group: 'org.springframework', name: 'spring-webmvc'
+        implementation group: 'org.springframework', name: 'spring-jdbc'
+        implementation group: 'org.postgresql', name: 'postgresql'
+
+        testImplementation group: 'org.testcontainers', name: 'postgresql'
+        // Some empty JUnit4 classes as Testcontainers has a hard dependency on them :(
+        testImplementation group: 'io.quarkus', name: 'quarkus-junit4-mock', version: '2.11.2.Final'
+        testImplementation group: 'org.testng', name: 'testng'
+        testImplementation group: 'org.mockito', name: 'mockito-core'
+        testImplementation group: 'org.springframework', name: 'spring-test'
+    }
+}
